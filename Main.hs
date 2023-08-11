@@ -22,7 +22,7 @@ evaluate :: Term -> Term
 evaluate (App (App (Var 'K') x) y) = evaluate x -- Rule 1
 evaluate (App (App (App (Var 'S') x) y) z) = do -- Rule 2
     let z' = evaluate z  
-    App (App (evaluate x) z') (App (evaluate y) z')
+    evaluate $ App (App (evaluate x) z') (App (evaluate y) z')
 evaluate (App (Var 'I') x) = evaluate x -- Rule 3
 -- Traverse the tree:
 evaluate (App x y) = App (evaluate x) (evaluate y)
